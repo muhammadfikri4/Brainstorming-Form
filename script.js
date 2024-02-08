@@ -55,19 +55,52 @@ const tambahData = ({ nama, email, nim, ide, angkatan }) => {
     .catch((err) => alert("Gagal Menginput Data!"));
 };
 
-button.addEventListener("click", function () {
-  const email = document.querySelector("#email").value;
-  const nim = document.querySelector("#nim").value;
-  const nama = document.querySelector("#nama").value;
-  const ide = document.querySelector("#ide").value;
-  const angkatan = document.querySelector("#angkatan").value;
-  if (!email || !nim || !nama || !angkatan || !ide) {
-    Swal.fire({
-      icon: "error",
-      title: "ERROR!",
-      text: "Pastikan semua terisi dengan benar!",
+if (button) {
+  button.addEventListener("click", function () {
+    const email = document.querySelector("#email").value;
+    const nim = document.querySelector("#nim").value;
+    const nama = document.querySelector("#nama").value;
+    const ide = document.querySelector("#ide").value;
+    const angkatan = document.querySelector("#angkatan").value;
+    if (!email || !nim || !nama || !angkatan || !ide) {
+      Swal.fire({
+        icon: "error",
+        title: "ERROR!",
+        text: "Pastikan semua terisi dengan benar!",
+      });
+      return 0;
+    }
+    tambahData({ nama, email, nim, angkatan, ide });
+  });
+}
+
+const tableBody = document.querySelector("tbody");
+
+const renderData = (item, index) => {
+  return `
+      <tr>
+            
+            <td>${item.email}</td>
+            <td>${item.nama}</td>
+            <td>${item.nim}</td>
+            <td>${item.angkatan}</td>
+            <td>${item.ide}</td>
+          </tr>
+      `;
+};
+
+const getData = () => {
+  let index = 0;
+  let items = "";
+  fetch(uri)
+    .then((res) => res.json())
+    .then((res) => {
+      for (const key in res) {
+        items += renderData(res[key], index);
+        tableBody.innerHTML = items;
+        index++;
+      }
     });
-    return 0;
-  }
-  tambahData({ nama, email, nim, angkatan, ide });
-});
+};
+
+getData();
