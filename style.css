@@ -1,0 +1,32 @@
+
+
+.back, .see {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    gap: 6px;
+}
+
+.btn-answer {
+    display: flex;
+    justify-content: end;
+}
+
+.btn-back {
+    display: flex;
+    justify-content: start;
+}
+
+@media screen and (max-width: 400px) {
+    /* * {
+        margin: 1px;
+        padding: 1px;
+    } */
+    table {
+        width: 100vw;
+    }
+    th, td {
+        font-size: 11px;
+    }
+}
